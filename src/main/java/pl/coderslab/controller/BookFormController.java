@@ -1,6 +1,7 @@
 package pl.coderslab.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,7 +41,11 @@ public class BookFormController {
             return "bookForm-add";
         }
 
-        bookDao.saveBook(book);
+        if (book.getId() != null) {
+            bookDao.update(book);
+        } else {
+            bookDao.saveBook(book);
+        }
         return "redirect:/bookForm/all";
     }
 
@@ -56,9 +61,8 @@ public class BookFormController {
                            Model model) {
         Book book = bookDao.findById(id);
         model.addAttribute("book", book);
-        return "bookForm-edit";
+        return "bookForm-add";
     }
-
 
     @ModelAttribute("publishers")
     public List<Publisher> getAllPublishers() {
