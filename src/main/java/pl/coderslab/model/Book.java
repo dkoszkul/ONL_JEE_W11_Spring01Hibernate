@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@ToString
+//@ToString
 @Table(name = "books")
 public class Book {
 
@@ -36,7 +37,7 @@ public class Book {
     @Column(name = "title")
     private String title;
 
-    @Range(min = 1, max = 10)
+    @Range(min = 1, max = 10, message = "Pole rating powinno byc miedzy 1 a 10")
     private Integer rating;
 
     @Size(max = 600)
@@ -47,7 +48,7 @@ public class Book {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @NotNull
+//    @NotEmpty
     @ToString.Exclude
     @ManyToMany
     @JoinTable(name = "books_authors",
