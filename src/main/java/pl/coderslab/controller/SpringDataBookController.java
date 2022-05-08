@@ -20,7 +20,7 @@ public class SpringDataBookController {
 
     @GetMapping("all")
     public void findAll() {
-        List<Book> all = bookRepository.findAll();
+        List<Book> all = bookRepository.findByAuthors_FirstName("aa");
         all.forEach(b -> log.info("{}", b.getId()));
     }
 }
